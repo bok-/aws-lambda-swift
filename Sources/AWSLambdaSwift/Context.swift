@@ -8,6 +8,7 @@ public struct Context {
     public let memoryLimitInMB: String
     public let awsRequestId: String
     public let invokedFunctionArn: String
+    public let environment: [String: String]
     private let deadlineDate: Date
 
     public init(environment: [String: String], responseHeaderFields: [AnyHashable: Any]) {
@@ -18,6 +19,8 @@ public struct Context {
         self.memoryLimitInMB = environment["AWS_LAMBDA_FUNCTION_MEMORY_SIZE"] ?? ""
         self.awsRequestId = responseHeaderFields["Lambda-Runtime-Aws-Request-Id"] as! String
         self.invokedFunctionArn = responseHeaderFields["Lambda-Runtime-Invoked-Function-Arn"] as! String
+        self.environment = environment
+
         let timeInterval = TimeInterval(responseHeaderFields["Lambda-Runtime-Deadline-Ms"] as! String)! / 1000
         self.deadlineDate = Date(timeIntervalSince1970: timeInterval)
     }
