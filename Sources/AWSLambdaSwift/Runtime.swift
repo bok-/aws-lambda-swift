@@ -113,6 +113,8 @@ public class Runtime {
             }
 
             let environment = ProcessInfo.processInfo.environment
+            log("Environment: \(environment)")
+            log("meow")
             let context = Context(environment: environment, responseHeaderFields: responseHeaderFields)
             let result = handler.apply(inputData: inputData, context: context)
 
